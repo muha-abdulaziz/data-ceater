@@ -16,6 +16,9 @@
     "url": "https://github.com/muha-abdulaziz/data-ceater/issues"
   },
   "homepage": "https://github.com/muha-abdulaziz/data-ceater#readme",
+  "dependencies": {
+    "@hapi/joi": "^16.1.8"
+  },
   "devDependencies": {
     "@types/node": "^12.12.17",
     "eslint": "^6.5.1",

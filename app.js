@@ -1,5 +1,14 @@
 const readline = require('readline');
 
+const toJson = json => {
+  try {
+    const schema = JSON.parse(json);
+    return schema;
+  } catch (err) {
+    throw new Error('Invalid JSON');
+  }
+};
+
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
@@ -18,11 +27,15 @@ rl.on('SIGCONT', () => {
 //   });
 // });
 
-rl.question('What do you think of Node.js? ', answer => {
-  // TODO: Log the answer in a database
-  console.log(`Thank you for your valuable feedback: ${answer}`);
-  rl.prompt();
-  // rl.close();
+rl.question('Enter your schema: ', userInput => {
+  try {
+    const schema = toJson(userInput);
+    rl.prompt();
+  } catch (err) {
+    console.error(err);
+
+    process.exit(1);
+  }
 });
 
 rl.on('line', input => {

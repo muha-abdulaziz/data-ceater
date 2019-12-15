@@ -1,5 +1,8 @@
 const readline = require('readline');
 
+const commandExecuter = require('./commandExecuter');
+const verifySchema = require('./verify-schema');
+
 const toJson = json => {
   try {
     const schema = JSON.parse(json);
@@ -30,6 +33,13 @@ rl.on('SIGCONT', () => {
 rl.question('Enter your schema: ', userInput => {
   try {
     const schema = toJson(userInput);
+
+    // check the validaty of schema
+    if (!verifySchema(schema)) {
+      throw new Error('invalid schema');
+    }
+
+    commandExecuter.runCommand('query', schema);
     rl.prompt();
   } catch (err) {
     console.error(err);

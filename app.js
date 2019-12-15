@@ -39,7 +39,7 @@ rl.question('Enter your schema: ', userInput => {
       throw new Error('invalid schema');
     }
 
-    commandExecuter.runCommand('query', schema);
+    commandExecuter.runCommand('schema', schema);
     rl.prompt();
   } catch (err) {
     console.error(err);

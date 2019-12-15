@@ -17,7 +17,10 @@
   },
   "homepage": "https://github.com/muha-abdulaziz/data-ceater#readme",
   "dependencies": {
-    "@hapi/joi": "^16.1.8"
+    "@hapi/joi": "^16.1.8",
+    "commander": "^4.0.1",
+    "faker": "^4.1.0",
+    "mongoose": "^5.8.1"
   },
   "devDependencies": {
     "@types/node": "^12.12.17",

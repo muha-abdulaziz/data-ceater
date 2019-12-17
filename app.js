@@ -3,6 +3,7 @@ const readline = require('readline');
 const commandExecuter = require('./commandExecuter');
 const verifySchema = require('./verify-schema');
 const cleanShutdown = require('./clean-shutdown');
+const mongodbConnection = require('./mongodb-connection');
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -55,7 +56,7 @@ const toJson = json => {
   }
 };
 
-rl.question('Enter your schema: ', userInput => {
+rl.question('Enter your schema: ', async userInput => {
   try {
     const schema = toJson(userInput);
 
@@ -63,6 +64,8 @@ rl.question('Enter your schema: ', userInput => {
     if (!verifySchema(schema)) {
       throw new Error('invalid schema');
     }
+
+    await mongodbConnection.connect('mongodb://127.0.0.1:27017/test');
 
     commandExecuter.runCommand('schema', schema);
     rl.prompt();

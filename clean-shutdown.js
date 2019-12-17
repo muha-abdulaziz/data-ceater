@@ -52,7 +52,7 @@ const dropDatabase = async schemaName => {
  * [TODO] return error code when droping database fail
  * @param {string} schemaName
  */
-const cleanShutdown = async (schemaName, signal) => {
+const cleanShutdown = async (signal, schemaName) => {
   if (!schemaName) console.error('@cleanShutdown schemaName is required');
   else {
     // clean the data base before shutdown

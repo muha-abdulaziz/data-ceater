@@ -8,7 +8,8 @@ const mongoose = require('mongoose');
  * @returns {Object}
  * @throws {TypeError}
  */
-const generateMongooseSchema = schema => {
+const generateMongooseSchema = (schema, schemaName) => {
+
   const cache = {};
   Object.entries(schema).forEach(([key, type]) => {
     switch (type) {
@@ -31,7 +32,7 @@ const generateMongooseSchema = schema => {
 
   const mongooseSchema = mongoose.Schema(cache);
 
-  const dataModel = mongoose.model('data', mongooseSchema);
+  const dataModel = mongoose.model(schemaName, mongooseSchema);
 
   return dataModel;
 };

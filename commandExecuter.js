@@ -12,6 +12,7 @@ class CommandExecuter {
      */
     this._isProssessRunning = false;
     this._dbModel = undefined;
+    this._dbModelName = 'data';
   }
 
   /**
@@ -68,7 +69,7 @@ class CommandExecuter {
       // stop other commands
       this._reverseIsProssessRunning();
 
-      const dbModel = generateMongooseSchema(command);
+      const dbModel = generateMongooseSchema(command, this.dbModelName);
       this._setdbModel(dbModel);
 
       // free the command runner

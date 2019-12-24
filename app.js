@@ -52,7 +52,8 @@ const toJson = json => {
     const schema = JSON.parse(json);
     return schema;
   } catch (err) {
-    throw new Error('Invalid JSON');
+    console.error('Invalid JSON');
+    process.exit(1);
   }
 };
 
@@ -62,7 +63,8 @@ rl.question('Enter your schema: ', async userInput => {
 
     // check the validaty of schema
     if (!verifySchema(schema)) {
-      throw new Error('invalid schema');
+      console.error('Invalid schema');
+      process.exit(1);
     }
 
     await mongodbConnection.connect('mongodb://127.0.0.1:27017/test');

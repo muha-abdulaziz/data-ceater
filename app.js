@@ -73,7 +73,7 @@ rl.question('Enter your schema: ', async userInput => {
 
     await mongodbConnection.connect('mongodb://127.0.0.1:27017/test');
 
-    commandExecuter.runCommand('schema', schema);
+    await commandExecuter.runCommand('schema', schema);
     rl.prompt();
   } catch (err) {
     console.error(err);

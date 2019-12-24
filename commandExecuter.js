@@ -1,4 +1,5 @@
 const generateMongooseSchema = require('./generate-mongoose-schema');
+const generateRandomData = require('./generate-random-data');
 
 /**
  * @class
@@ -58,7 +59,7 @@ class CommandExecuter {
    *
    * @throws invalid commandType
    */
-  runCommand(commandType, command) {
+  async runCommand(commandType, command) {
     if (commandType !== 'schema' && commandType !== 'query') {
       throw new Error(
         'invalid commandType, commandType value must be schema or query',
@@ -71,6 +72,8 @@ class CommandExecuter {
 
       const dbModel = generateMongooseSchema(command, this.dbModelName);
       this._setdbModel(dbModel);
+
+      await generateRandomData(command, dbModel);
 
       // free the command runner
       this._reverseIsProssessRunning();

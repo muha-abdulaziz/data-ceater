@@ -6,7 +6,7 @@ const generateMongooseSchema = require('./generate-mongoose-schema');
  * it garanty to just runs one command at a time
  */
 class CommandExecuter {
-  constraction() {
+  constructor() {
     /**
      * value used to track if there is a running command or not
      */

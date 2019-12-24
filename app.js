@@ -23,7 +23,8 @@ rl.on('SIGCONT', () => {
 });
 
 rl.on('SIGINT', () => {
-  cleanShutdown('SIGINT');
+  const { dbModel } = commandExecuter;
+  cleanShutdown('SIGINT', dbModel);
   // rl.question('Are you sure you want to exit? ', answer => {
   //   if (answer.match(/^y(es)?$/i)) cleanShutdown('SIGINT');
   // });
@@ -33,7 +34,10 @@ rl.on('SIGINT', () => {
 process.once('SIGUSR2', () => cleanShutdown('SIGUSR2'));
 
 // For Heroku app termination
-process.on('SIGTERM', () => cleanShutdown('SIGTERM'));
+process.on('SIGTERM', () => {
+  const { dbModel } = commandExecuter;
+  cleanShutdown('SIGTERM', dbModel);
+});
 
 /*
  ***************************************************************
@@ -74,7 +78,8 @@ rl.question('Enter your schema: ', async userInput => {
   } catch (err) {
     console.error(err);
 
-    process.exit(1);
+    const { dbModel } = commandExecuter;
+    cleanShutdown('SIGINT', dbModel);
   }
 });
 

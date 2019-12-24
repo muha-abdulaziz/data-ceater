@@ -42,6 +42,14 @@ class CommandExecuter {
     this._dbModel = dbModel;
   }
 
+  get dbModel() {
+    return this._dbModel;
+  }
+
+  get dbModelName() {
+    return this._dbModelName;
+  }
+
   /**
    *
    * @param {string} commandType - schema or query

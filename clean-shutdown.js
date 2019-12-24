@@ -44,19 +44,20 @@ const closeApp = (signal, gracefulShutdown) => {
  *
  * @returns {Promise<void>}
  */
-const dropDatabase = async schemaName => {
-  return Promise.resolve(schemaName);
+const dropDatabase = async dbModel => {
+  dbModel.remove();
+  return Promise.resolve(dbModel);
 };
 
 /**
  * [TODO] return error code when droping database fail
  * @param {string} schemaName
  */
-const cleanShutdown = async (signal, schemaName) => {
-  if (!schemaName) console.error('@cleanShutdown schemaName is required');
+const cleanShutdown = async (signal, dbModel) => {
+  if (!dbModel) console.error('@cleanShutdown dbModel is required');
   else {
     // clean the data base before shutdown
-    await dropDatabase(schemaName).catch(err => console.error(err));
+    await dropDatabase(dbModel).catch(err => console.error(err));
   }
 
   closeApp(signal, mongodbConnection.gracefulShutdown);

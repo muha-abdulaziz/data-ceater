@@ -1,3 +1,5 @@
+const generateMongooseSchema = require('./generate-mongoose-schema');
+
 /**
  * @class
  * used to run the commands of the user,
@@ -9,6 +11,7 @@ class CommandExecuter {
      * value used to track if there is a running command or not
      */
     this._isProssessRunning = false;
+    this._dbModel = undefined;
   }
 
   /**
@@ -35,6 +38,10 @@ class CommandExecuter {
     }
   }
 
+  _setdbModel(dbModel) {
+    this._dbModel = dbModel;
+  }
+
   /**
    *
    * @param {string} commandType - schema or query
@@ -43,15 +50,21 @@ class CommandExecuter {
    * @throws invalid commandType
    */
   runCommand(commandType, command) {
-    console.log({
-      commandType: commandType.toLowerCase(),
-      command,
-    });
-
     if (commandType !== 'schema' && commandType !== 'query') {
       throw new Error(
         'invalid commandType, commandType value must be schema or query',
       );
+    }
+
+    if (commandType === 'schema') {
+      // stop other commands
+      this._reverseIsProssessRunning();
+
+      const dbModel = generateMongooseSchema(command);
+      this._setdbModel(dbModel);
+
+      // free the command runner
+      this._reverseIsProssessRunning();
     }
 
     if (this._getIsProssessRunning) {

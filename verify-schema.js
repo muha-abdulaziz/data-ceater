@@ -21,6 +21,18 @@ const schemaValidatore = schema => {
     const type = schemaEntries[i][typeIndex];
     const key = schemaEntries[i][keyIndex];
 
+    if (!key) {
+      console.error(`property name '${key}' can not be empty`);
+      return false;
+    }
+
+    if (key.length > 50) {
+      console.error(
+        `property name '${key}' can not be more than 50 characters`,
+      );
+      return false;
+    }
+
     if (typeof type !== 'string') {
       console.error('datatype must be -> string, number, boolean or date');
       return false;

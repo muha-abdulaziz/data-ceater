@@ -1,7 +1,7 @@
 const readline = require('readline');
 
 const commandExecuter = require('./commandExecuter');
-const verifySchema = require('./verify-schema');
+const verifyDataSchema = require('./verify-data-schema');
 const cleanShutdown = require('./clean-shutdown');
 const mongodbConnection = require('./mongodb-connection');
 
@@ -66,7 +66,7 @@ rl.question('Enter your schema: ', async userInput => {
     const schema = toJson(userInput);
 
     // check the validaty of schema
-    if (!verifySchema(schema)) {
+    if (!verifyDataSchema(schema)) {
       console.error('Invalid schema');
       process.exit(1);
     }
